@@ -1,0 +1,8 @@
+services:
+  plugin.manager.current_group:
+    class: Drupal\tenant\CurrentGroupPluginManager
+    parent: default_plugin_manager
+
+  tenant.current_group_manager:
+    class: Drupal\tenant\CurrentGroupManager
+    arguments: ['@plugin.manager.current_group']

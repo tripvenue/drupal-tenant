@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: tenant
+label: Tenant
+description: 'Tenants are created by site-wide administrators.'
+creator_membership: false
+creator_wizard: false
+creator_roles: {  }

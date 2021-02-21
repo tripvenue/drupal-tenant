@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.tenant
+id: tenant-admin
+label: Admin
+weight: 4
+internal: false
+audience: member
+group_type: tenant
+permissions_ui: true
+permissions:
+  - 'administer members'
+  - 'edit group'
+  - 'invite users to group'
+  - 'view group invitations'

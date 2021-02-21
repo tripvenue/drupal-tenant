@@ -1,0 +1,9 @@
+# Schema for the entity reference 'tenant:user' selection handler settings.
+# Inherit from default user entity reference selection
+entity_reference_selection.tenant:user:
+  type: entity_reference_selection.default:user
+
+# Schema for the entity reference 'tenant:node' selection handler settings.
+# Inherit from default node entity reference selection
+entity_reference_selection.tenant:node:
+  type: entity_reference_selection.default:node
