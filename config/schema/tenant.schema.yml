@@ -1,0 +1,4 @@
+condition.plugin.current_group:
+  type: condition.plugin
+  label: 'Current group condition'
+  mapping: { }
