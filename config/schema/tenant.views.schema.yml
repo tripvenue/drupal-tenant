@@ -2,3 +2,8 @@
 views.filter.group_user_name:
   type: views.filter.in_operator
   label: 'Tenant: User name'
+
+# Schema for the 'tenant_node_filter' views filter handler
+views.filter.tenant_node_filter:
+  type:
+  label: 'Tenant: Node'

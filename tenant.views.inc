@@ -15,5 +15,14 @@ function tenant_views_data() {
     ],
   ];
 
+  $data['node_field_data']['nid_tenant'] = [
+    'real field' => 'nid',
+    'filter' => [
+      'id' => 'tenant_node_filter',
+      'title' => t('Tenant: Node'),
+      'help' => t('Tenant node, restricted to current group')
+    ],
+  ];
+
   return $data;
 }
