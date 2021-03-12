@@ -1,0 +1,4 @@
+# Schema for the 'group_user_name' views filter handler.
+views.filter.group_user_name:
+  type: views.filter.in_operator
+  label: 'Tenant: User name'
