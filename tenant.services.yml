@@ -1,8 +1,14 @@
 services:
+  # manages plugins of type current_group
   plugin.manager.current_group:
     class: Drupal\tenant\CurrentGroupPluginManager
     parent: default_plugin_manager
 
+  # utilized plugin manager to identify and return current group
   tenant.current_group_manager:
     class: Drupal\tenant\CurrentGroupManager
     arguments: ['@plugin.manager.current_group']
+
+  # user login form alterations
+  tenant.form_helper.user_login:
+    class: Drupal\tenant\Form\Helper\UserLogin
