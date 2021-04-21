@@ -65,7 +65,9 @@ class NodeSelection extends DefaultNodeSelection {
           ->execute()
           ->fetchCol(0);
 
-        $query->condition('base_table.nid', $nids, 'IN');
+        if ($nids) {
+          $query->condition('base_table.nid', $nids, 'IN');
+        }
       }
     }
   }
