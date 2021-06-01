@@ -8,3 +8,42 @@
  * This file is no longer required in Drupal 8.
  * @see https://www.drupal.org/node/2217931
  */
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function tenant_entity_base_field_info(\Drupal\Core\Entity\EntityTypeInterface $entity_type) {
+  $fields = [];
+
+  if ($entity_type->id() == 'user') {
+    /** @var \Drupal\group\Entity\GroupType $group_type */
+    $group_type = \Drupal::entityTypeManager()->getStorage('group_type')->load('tenant');
+    $field_name = $group_type->id() . '_group_name';
+
+    $fields[$field_name] = \Drupal\Core\Field\BaseFieldDefinition::create('string')
+      ->setName($field_name)
+      ->setLabel($group_type->label())
+      ->setClass(\Drupal\tenant\Plugin\Field\FieldType\GroupNameItem::class)
+      ->setComputed(TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayOptions('view', ['type' => 'hidden']);
+  }
+
+  return $fields;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function tenant_form_system_site_information_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  // append hint for provided front page
+  $form['front_page']['site_frontpage']['#description'] .= ' ';
+  $form['front_page']['site_frontpage']['#description'] .= t('Specify "/tenant/front" to dispatch front page by group membership status');
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function tenant_form_user_login_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  \Drupal::service('tenant.form_helper.user_login')->formAlter($form, $form_state);
+}

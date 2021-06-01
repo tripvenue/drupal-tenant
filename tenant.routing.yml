@@ -1,0 +1,7 @@
+tenant.page.front:
+  path: '/tenant/front'
+  defaults:
+    _title: 'Front page'
+    _controller: '\Drupal\tenant\Controller\TenantController::front'
+  requirements:
+    _access: 'TRUE'

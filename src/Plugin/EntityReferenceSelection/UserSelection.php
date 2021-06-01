@@ -48,7 +48,9 @@ class UserSelection extends DefaultUserSelection {
       // remove current user from the list
       unset($uids[$this->currentUser->id()]);
 
-      $query->condition('base_table.uid', $uids, 'IN');
+      if ($uids) {
+        $query->condition('base_table.uid', $uids, 'IN');
+      }
     }
 
     // restrict to active users regardless previous considerations

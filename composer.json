@@ -5,7 +5,7 @@
     "type": "drupal-module",
     "require": {
         "drupal/core": "^8.9 || ^9",
-        "drupal/ginvite": "^1.0@alpha"
+        "drupal/ginvite": "^2.0"
     },
     "license": "GPL-2.0-or-later",
     "authors": [
