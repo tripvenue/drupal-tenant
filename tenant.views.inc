@@ -6,21 +6,12 @@
 function tenant_views_data() {
   $data = [];
 
-  $data['node_field_data']['uid_tenant'] = [
+  $data['node_field_data']['tenant_uid_autocomplete'] = [
     'real field' => 'uid',
     'filter' => [
-      'id' => 'group_user_name',
-      'title' => t('Tenant: Authored by (autocomplete)'),
-      'help' => t('Content author, restricted to current group')
-    ],
-  ];
-
-  $data['node_field_data']['nid_tenant'] = [
-    'real field' => 'nid',
-    'filter' => [
-      'id' => 'tenant_node_filter',
-      'title' => t('Tenant: Node'),
-      'help' => t('Tenant node, restricted to current group')
+      'id' => 'tenant_uid_autocomplete',
+      'title' => t('Authored by (autocomplete)'),
+      'help' => t('The user authoring the content of given group. Filtered by value(s) from text input')
     ],
   ];
 

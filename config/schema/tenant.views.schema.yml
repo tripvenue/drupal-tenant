@@ -1,9 +1,3 @@
-# Schema for the 'group_user_name' views filter handler.
-views.filter.group_user_name:
+views.filter.tenant_uid_autocomplete:
   type: views.filter.in_operator
-  label: 'Tenant: User name'
-
-# Schema for the 'tenant_node_filter' views filter handler
-views.filter.tenant_node_filter:
-  type:
-  label: 'Tenant: Node'
+  label: 'Authored by (autocomplete)'
