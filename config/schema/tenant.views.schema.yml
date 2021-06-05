@@ -1,0 +1,7 @@
+views.filter.tenant_uid_autocomplete:
+  type: views.filter.in_operator
+  label: 'Authored by (autocomplete)'
+
+views.filter.tenant_uid_selection:
+  type: views.filter.many_to_one
+  label: 'Authored by (dropdown)'

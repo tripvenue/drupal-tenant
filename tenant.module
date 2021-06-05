@@ -10,6 +10,29 @@
  */
 
 /**
+ * Implements hook_entity_base_field_info().
+ */
+function tenant_entity_base_field_info(\Drupal\Core\Entity\EntityTypeInterface $entity_type) {
+  $fields = [];
+
+  if ($entity_type->id() == 'user') {
+    /** @var \Drupal\group\Entity\GroupType $group_type */
+    $group_type = \Drupal::entityTypeManager()->getStorage('group_type')->load('tenant');
+    $field_name = $group_type->id() . '_group_name';
+
+    $fields[$field_name] = \Drupal\Core\Field\BaseFieldDefinition::create('string')
+      ->setName($field_name)
+      ->setLabel($group_type->label())
+      ->setClass(\Drupal\tenant\Plugin\Field\FieldType\GroupNameItem::class)
+      ->setComputed(TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayOptions('view', ['type' => 'hidden']);
+  }
+
+  return $fields;
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function tenant_form_system_site_information_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {

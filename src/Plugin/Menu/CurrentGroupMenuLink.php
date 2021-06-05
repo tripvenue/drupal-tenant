@@ -67,7 +67,20 @@ class CurrentGroupMenuLink extends MenuLinkDefault {
    * {@inheritdoc}
    */
   public function getCacheTags() {
-    return ['url'];
+    $cache_tags = ['url'];
+    if ($this->group) {
+      $cache_tags[] = "group:{$this->group->id()}";
+    }
+    return $cache_tags;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheContexts() {
+    return [
+      'route.group',
+      'user.group_permissions'
+    ];
+  }
 }

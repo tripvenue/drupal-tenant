@@ -54,7 +54,8 @@ class UserSelection extends DefaultUserSelection {
     }
 
     // restrict to active users regardless previous considerations
-    $query->condition('users_field_data.status', 1);
+    // TODO build a join to this table or check the table presence
+//    $query->condition('users_field_data.status', 1);
   }
 
   /**
