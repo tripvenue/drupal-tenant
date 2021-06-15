@@ -12,3 +12,15 @@ services:
   # user login form alterations
   tenant.form_helper.user_login:
     class: Drupal\tenant\Form\Helper\UserLogin
+
+  # custom access checker registration in routes
+  tenant.route_subscriber:
+    class: Drupal\tenant\EventSubscriber\AccessRouteSubscriber
+    tags:
+      - { name: event_subscriber }
+
+  # custom access checker service for group content add form routes
+  access_check.tenant.custom_access:
+    class: Drupal\tenant\Access\GroupContentAddFormAccessChecker
+    tags:
+      - { name: access_check, applies_to: _custom_access }
