@@ -16,7 +16,7 @@ class AccessRouteSubscriber extends RouteSubscriberBase {
    */
   protected function alterRoutes(RouteCollection $collection) {
     // handle group content add form access
-    if ($route = $collection->get('entity.group_content.add_form')) {
+    if ($route = $collection->get('entity.group_relationship.add_form')) {
       $route->setRequirement('_custom_access', 'Drupal\tenant\Access\GroupContentAddFormAccessChecker::access');
     }
   }

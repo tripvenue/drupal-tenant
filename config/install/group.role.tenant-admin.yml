@@ -9,6 +9,7 @@ weight: 4
 internal: false
 audience: member
 group_type: tenant
+scope: 'individual'
 permissions_ui: true
 permissions:
   - 'administer members'

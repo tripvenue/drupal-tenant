@@ -9,6 +9,7 @@ weight: -100
 internal: true
 audience: member
 group_type: tenant
+scope: 'individual'
 permissions_ui: true
 permissions:
   - 'view group'
