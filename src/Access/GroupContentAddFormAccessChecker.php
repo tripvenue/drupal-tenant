@@ -22,6 +22,9 @@ class GroupContentAddFormAccessChecker implements AccessInterface {
    */
   public function access(AccountInterface $account, RouteMatchInterface $routeMatch) {
     if ($routeMatch->getParameter('plugin_id') == 'group_membership') {
+      if ($account->hasPermission('administer users')) {
+        return AccessResult::allowed();
+      }
       return AccessResult::forbidden();
     }
     return AccessResult::allowed();
