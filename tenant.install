@@ -66,3 +66,66 @@ function tenant_schema() {
 
   return $schema;
 }
+
+function tenant_update_9501() {
+  $database = \Drupal::service('database');
+  if ($database->schema()->tableExists('tenant_data')) {
+    print "The 'tenant_data' table already exists";
+    return;
+  }
+
+  $schema = [
+    'description' => 'Stores module data as key/value pairs per tenant.',
+    'fields' => [
+      'tenant_id' => [
+        'description' => 'The {groups}.id this record affects.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'module' => [
+        'description' => 'The name of the module declaring the variable.',
+        'type' => 'varchar_ascii',
+        'length' => DRUPAL_EXTENSION_NAME_MAX_LENGTH,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'name' => [
+        'description' => 'The identifier of the data.',
+        'type' => 'varchar_ascii',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'value' => [
+        'description' => 'The value.',
+        'type' => 'blob',
+        'not null' => FALSE,
+        'size' => 'big',
+      ],
+      'serialized' => [
+        'description' => 'Whether value is serialized.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['tenant_id', 'module', 'name'],
+    'indexes' => [
+      'module' => ['module'],
+      'name' => ['name'],
+    ],
+    'foreign keys' => [
+      'data_user' => [
+        'table' => 'groups',
+        'columns' => [
+          'tenant_id' => 'tenant_id',
+        ],
+      ],
+    ],
+  ];
+
+  $database->schema()->createTable('tenant_data', $schema);
+}
