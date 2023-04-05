@@ -24,3 +24,9 @@ services:
     class: Drupal\tenant\Access\GroupContentAddFormAccessChecker
     tags:
       - { name: access_check, applies_to: _custom_access }
+
+  tenant.data:
+    class: Drupal\tenant\TenantData
+    arguments: ['@database']
+    tags:
+      - { name: backend_overridable }
