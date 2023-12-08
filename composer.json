@@ -1,5 +1,5 @@
 {
-    "name": "claios/tenant",
+    "name": "drupal/tenant",
     "description": "Tenant module for Drupal",
     "homepage": "http://drupal.org/project/tenant",
     "type": "drupal-module",
