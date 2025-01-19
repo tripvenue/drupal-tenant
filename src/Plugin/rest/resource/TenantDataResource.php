@@ -15,7 +15,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Manage tenant properties.
@@ -102,6 +102,9 @@ class TenantDataResource extends ResourceBase {
   public function get($uuid, $module) {
     $tenant = $this->checkAccess($uuid, $module);
     $data = $this->tenantData->get($module, $tenant->id());
+    if ($module === 'tenant_settings') {
+      $data['title'] = $tenant->label();
+    }
     return new ModifiedResourceResponse($data);
   }
 
@@ -112,7 +115,12 @@ class TenantDataResource extends ResourceBase {
     $tenant = $this->checkAccess($uuid, $module, TRUE);
 
     foreach ($data as $name => $value) {
-      $this->tenantData->set($module, $tenant->id(), $name, $value);
+      if ($module === 'tenant_settings' && $name === 'title') {
+        $tenant->set('label', $data['title']);
+        $tenant->save();
+      } else {
+        $this->tenantData->set($module, $tenant->id(), $name, $value);
+      }
     }
 
     return new ModifiedResourceResponse(null, 201);
@@ -128,10 +136,10 @@ class TenantDataResource extends ResourceBase {
 
     /* @var $tenant GroupInterface */
     if (!($tenant = $this->entityRepository->loadEntityByUuid('group', $uuid))) {
-      throw new ResourceNotFoundException();
+      throw new NotFoundHttpException();
     }
 
-    if (!$this->groupMembershipLoader->load($tenant, $this->currentUser)) {
+    if (!$this->currentUser->hasPermission('administer users') && !$this->groupMembershipLoader->load($tenant, $this->currentUser)) {
       throw new AccessDeniedHttpException();
     }
 
